@@ -1,0 +1,34 @@
+﻿@inject NavigationManager Navigation
+@using System.Globalization
+@rendermode InteractiveServer
+
+<div>
+    <select @bind="Culture">
+        <option value="en-US">English</option>
+        <option value="pt-BR">Portuguese</option>
+    </select>
+</div>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        Culture = CultureInfo.CurrentCulture;
+    }
+
+    private CultureInfo Culture
+    {
+        get => CultureInfo.CurrentCulture;
+        set
+        {
+            if (!Equals(CultureInfo.CurrentCulture, value))
+            {
+                var uri = new Uri(Navigation.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var cultureEscaped = Uri.EscapeDataString(value.Name);
+                var uriEscaped = Uri.EscapeDataString(uri);
+
+                Navigation.NavigateTo($"Culture/Set?culture={cultureEscaped}&redirectUri={uriEscaped}", forceLoad: true);
+            }
+        }
+    }
+}

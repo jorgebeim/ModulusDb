@@ -1,6 +1,8 @@
 ﻿@page "/"
 
-<PageTitle>Home Page</PageTitle>
+@inject IStringLocalizer<Resource> localizer
 
-<h1 style="text-align:center">Welcome to the</h1>
-<h1 style="text-align:center">Modulus Engenharia Database Manager</h1>
+<PageTitle>@localizer["Home"]</PageTitle>
+
+<h1 style="text-align:center">@localizer["HomeTitle"]</h1>
+<h1 style="text-align:center">@localizer["AppDescription"]</h1>
