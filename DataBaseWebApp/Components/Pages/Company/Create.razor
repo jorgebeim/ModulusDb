@@ -1,0 +1,40 @@
+﻿@page "/company/create"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@inject DataBaseWebAppContext Context
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<div class="row">
+    <div class ="col-sm-6">
+        <h3>Create</h3>
+
+        <EditForm Model="Company" OnValidSubmit="Save" FormName="create">
+        
+            <div class="form-group">
+                <label>Company Name</label>
+                <InputText @bind-Value="Company.CompanyName" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <InputText @bind-Value="Company.Address" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create Client</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    public Company Company { get; set; } = new();
+
+    private void Save()
+    {
+        Context.Company.Add(Company);
+        Context.SaveChanges();
+        NavManager.NavigateTo("/company");
+    }
+
+}

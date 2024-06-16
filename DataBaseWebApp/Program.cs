@@ -1,12 +1,15 @@
 using DataBaseWebApp.Components;
+using DataBaseWebApp.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddLocalization(); //For Localization
 builder.Services.AddControllers(); //For CultureController
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");;
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddDbContext<DataBaseWebAppContext>(options => options.UseMySQL(connectionString));
 
 var app = builder.Build();
 

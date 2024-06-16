@@ -1,0 +1,58 @@
+﻿@page "/company"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@inject DataBaseWebAppContext context
+
+<h3>Companies</h3>
+
+<a href="company/create" class="btn btn-primary"> + New</a>
+
+@if (Companies is null)
+{
+    <p>Loading</p>
+}
+else if (Companies.Count == 0)
+{
+    <p>No Companies</p>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Address</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Postal Code</td>
+            <td>Country</td>
+            <td>Phone</td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var company in Companies)
+        {
+            <tr>
+                <td>@company.CompanyName</td>
+                <td>@company.Address</td>
+                <td>@company.City</td>
+                <td>@company.State</td>
+                <td>@company.PostalCode</td>
+                <td>@company.Country</td>
+                <td>@company.Phone</td>
+            </tr>
+
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    public List<Company>? Companies { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Companies = context.Company.ToList();
+    }
+
+}
