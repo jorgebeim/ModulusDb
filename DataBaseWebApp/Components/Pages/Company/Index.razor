@@ -2,31 +2,35 @@
 @using DataBaseWebApp.Data
 @using DataBaseWebApp.Models
 @inject DataBaseWebAppContext context
+@inject IStringLocalizer<Resource> localizer
 
-<h3>Companies</h3>
+<h3>@localizer["MnuCompany"]</h3>
 
-<a href="company/create" class="btn btn-primary"> + New</a>
+<a href="company/create" class="btn btn-primary">@localizer["PlusNew"]</a>
+<p></p>
 
 @if (Companies is null)
 {
-    <p>Loading</p>
+    <p>@localizer["Loading"]</p>
 }
 else if (Companies.Count == 0)
 {
-    <p>No Companies</p>
+    <p>@localizer["NoComps"]</p>
 }
 else
 {
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <td>Name</td>
-            <td>Address</td>
-            <td>City</td>
-            <td>State</td>
-            <td>Postal Code</td>
-            <td>Country</td>
-            <td>Phone</td>
+            <td>@localizer["Name"]</td>
+            <td>@localizer["Address"]</td>
+            <td>@localizer["City"]</td>
+            <td>@localizer["State"]</td>
+            <td>@localizer["Zip"]</td>
+            <td>@localizer["Country"]</td>
+            <td>@localizer["Phone"]</td>
+            <td>@localizer["Contact"]</td>
+            <td>@localizer["Email"]</td>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +44,8 @@ else
                 <td>@company.PostalCode</td>
                 <td>@company.Country</td>
                 <td>@company.Phone</td>
+                <td>@company.Contact</td>
+                <td>@company.Email</td>
             </tr>
 
         }
@@ -48,7 +54,7 @@ else
 }
 
 @code {
-    public List<Company>? Companies { get; set; }
+    private List<Company>? Companies { get; set; }
 
     protected override void OnInitialized()
     {

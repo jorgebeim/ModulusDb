@@ -3,24 +3,54 @@
 @using DataBaseWebApp.Models
 @inject DataBaseWebAppContext Context
 @inject NavigationManager NavManager
+@inject IStringLocalizer<Resource> localizer
 @rendermode InteractiveServer
 
 <div class="row">
     <div class ="col-sm-6">
-        <h3>Create</h3>
+        <h3>@localizer["Create"]</h3>
 
         <EditForm Model="Company" OnValidSubmit="Save" FormName="create">
         
             <div class="form-group">
-                <label>Company Name</label>
+                <label>@localizer["CoName"]</label>
                 <InputText @bind-Value="Company.CompanyName" class="form-control"/>
             </div>
             <div class="form-group">
-                <label>Address</label>
+                <label>@localizer["Address"]</label>
                 <InputText @bind-Value="Company.Address" class="form-control"/>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Create Client</button>
+                <label>@localizer["City"]</label>
+                <InputText @bind-Value="Company.City" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["State"]</label>
+                <InputText @bind-Value="Company.State" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["Zip"]</label>
+                <InputText @bind-Value="Company.PostalCode" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["Country"]</label>
+                <InputText @bind-Value="Company.Country" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["Phone"]</label>
+                <InputText @bind-Value="Company.Phone" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["Contact"]</label>
+                <InputText @bind-Value="Company.Contact" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>@localizer["Email"]</label>
+                <InputText @bind-Value="Company.Email" class="form-control"/>
+            </div>
+            <p></p>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">@localizer["CreateClient"]</button>
             </div>
         </EditForm>
     </div>
