@@ -1,7 +1,121 @@
 ﻿@page "/company/edit"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@using Microsoft.EntityFrameworkCore
+@inject DataBaseWebAppContext context
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
-<h3>Edit</h3>
+<h3>@localizer["Edit"]</h3>
+<hr/>
+@if (Company is null)
+{
+    <p><em>@localizer["Loading"]</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Company" OnValidSubmit="EditCompany" FormName="edit" Enhance>
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <input type="hidden" name="Company.Id" value="@Company.Id"/>
+                <div class="mb-3">
+                    <label for="name" class="form-label">@($"{localizer["CoName"]}:")</label>
+                    <InputText id="name" @bind-Value="Company.CompanyName" class="form-control" />
+                    <ValidationMessage For="() => Company.CompanyName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">@($"{localizer["Address"]}:")</label>
+                    <InputText id="address" @bind-Value="Company.Address" class="form-control" />
+                    <ValidationMessage For="() => Company.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">@($"{localizer["City"]}:")</label>
+                    <InputText id="city" @bind-Value="Company.City" class="form-control" />
+                    <ValidationMessage For="() => Company.City" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="state" class="form-label">@($"{localizer["State"]}:")</label>
+                    <InputText id="state" @bind-Value="Company.State" class="form-control" />
+                    <ValidationMessage For="() => Company.State" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="zip" class="form-label">@($"{localizer["Zip"]}:")</label>
+                    <InputText id="zip" @bind-Value="Company.PostalCode" class="form-control" />
+                    <ValidationMessage For="() => Company.PostalCode" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">@($"{localizer["Country"]}:")</label>
+                    <InputText id="country" @bind-Value="Company.Country" class="form-control" />
+                    <ValidationMessage For="() => Company.Country" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">@($"{localizer["Phone"]}:")</label>
+                    <InputText id="phone" @bind-Value="Company.Phone" class="form-control" />
+                    <ValidationMessage For="() => Company.Phone" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="contact" class="form-label">@($"{localizer["Contact"]}:")</label>
+                    <InputText id="contact" @bind-Value="Company.Contact" class="form-control" />
+                    <ValidationMessage For="() => Company.Contact" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">@($"{localizer["Email"]}:")</label>
+                    <InputText id="email" @bind-Value="Company.Email" class="form-control" />
+                    <ValidationMessage For="() => Company.Email" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">@localizer["Save"]</button>
+            </EditForm>
+        </div>
+    </div>
+}
 
 @code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public Company? Company { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Company ??= await context.Company.FirstOrDefaultAsync(c => c.Id == Id);
+
+        if (Company is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async void EditCompany()
+    {
+        context.Attach(Company!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CompanyExists(Company!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/company");
+
+        return;
+
+        bool CompanyExists(int id)
+        {
+            return context.Company.Any(c => c.Id == id);
+        }
+    }
 
 }

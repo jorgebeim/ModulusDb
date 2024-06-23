@@ -1,9 +1,8 @@
 ﻿@page "/company/create"
 @using DataBaseWebApp.Data
 @using DataBaseWebApp.Models
-@inject DataBaseWebAppContext Context
+@inject DataBaseWebAppContext context
 @inject NavigationManager NavManager
-@inject IStringLocalizer<Resource> localizer
 @rendermode InteractiveServer
 
 <div class="row">
@@ -11,47 +10,58 @@
         <h3>@localizer["Create"]</h3>
 
         <EditForm Model="Company" OnValidSubmit="Save" FormName="create">
-        
+            <DataAnnotationsValidator/>
+            <ValidationSummary class="text-danger" />
             <div class="form-group">
-                <label>@localizer["CoName"]</label>
-                <InputText @bind-Value="Company.CompanyName" class="form-control"/>
+                <label for="name">@localizer["CoName"]</label>
+                <InputText id="name" @bind-Value="Company.CompanyName" class="form-control"/>
+                <ValidationMessage For="() => Company.CompanyName" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Address"]</label>
-                <InputText @bind-Value="Company.Address" class="form-control"/>
+                <label for="address">@localizer["Address"]</label>
+                <InputText id="address" @bind-Value="Company.Address" class="form-control"/>
+                <ValidationMessage For="() => Company.Address" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["City"]</label>
-                <InputText @bind-Value="Company.City" class="form-control"/>
+                <label for="city">@localizer["City"]</label>
+                <InputText id="city" @bind-Value="Company.City" class="form-control"/>
+                <ValidationMessage For="() => Company.City" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["State"]</label>
-                <InputText @bind-Value="Company.State" class="form-control"/>
+                <label for="state">@localizer["State"]</label>
+                <InputText id="state" @bind-Value="Company.State" class="form-control"/>
+                <ValidationMessage For="() => Company.State" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Zip"]</label>
-                <InputText @bind-Value="Company.PostalCode" class="form-control"/>
+                <label for="zip">@localizer["Zip"]</label>
+                <InputText id="zip" @bind-Value="Company.PostalCode" class="form-control"/>
+                <ValidationMessage For="() => Company.PostalCode" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Country"]</label>
-                <InputText @bind-Value="Company.Country" class="form-control"/>
+                <label for="country">@localizer["Country"]</label>
+                <InputText id="country" @bind-Value="Company.Country" class="form-control"/>
+                <ValidationMessage For="() => Company.Country" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Phone"]</label>
-                <InputText @bind-Value="Company.Phone" class="form-control"/>
+                <label for="phone">@localizer["Phone"]</label>
+                <InputText id="phone" @bind-Value="Company.Phone" class="form-control"/>
+                <ValidationMessage For="() => Company.Phone" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Contact"]</label>
-                <InputText @bind-Value="Company.Contact" class="form-control"/>
+                <label for="contact">@localizer["Contact"]</label>
+                <InputText id="contact" @bind-Value="Company.Contact" class="form-control"/>
+                <ValidationMessage For="() => Company.Contact" class="text-danger" />
             </div>
             <div class="form-group">
-                <label>@localizer["Email"]</label>
-                <InputText @bind-Value="Company.Email" class="form-control"/>
+                <label for="email">@localizer["Email"]</label>
+                <InputText id="email" @bind-Value="Company.Email" class="form-control"/>
+                <ValidationMessage For="() => Company.Email" class="text-danger" />
             </div>
-            <p></p>
+            <br/>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">@localizer["CreateClient"]</button>
             </div>
+
         </EditForm>
     </div>
 </div>
@@ -60,10 +70,10 @@
 @code {
     public Company Company { get; set; } = new();
 
-    private void Save()
+    private async Task Save()
     {
-        Context.Company.Add(Company);
-        Context.SaveChanges();
+        context.Company.Add(Company);
+        await context.SaveChangesAsync();
         NavManager.NavigateTo("/company");
     }
 

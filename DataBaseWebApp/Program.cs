@@ -10,6 +10,7 @@ builder.Services.AddControllers(); //For CultureController
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");;
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 builder.Services.AddDbContext<DataBaseWebAppContext>(options => options.UseMySQL(connectionString));
+builder.Services.AddQuickGridEntityFrameworkAdapter();
 
 var app = builder.Build();
 

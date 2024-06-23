@@ -1,64 +1,54 @@
 ﻿@page "/company"
 @using DataBaseWebApp.Data
 @using DataBaseWebApp.Models
+@using Microsoft.AspNetCore.Components.QuickGrid
 @inject DataBaseWebAppContext context
-@inject IStringLocalizer<Resource> localizer
+@rendermode InteractiveServer
 
 <h3>@localizer["MnuCompany"]</h3>
 
-<a href="company/create" class="btn btn-primary">@localizer["PlusNew"]</a>
-<p></p>
+<p>
+    <a href="company/create" class="btn btn-primary">@localizer["PlusNew"]</a>
+</p>
 
 @if (Companies is null)
 {
     <p>@localizer["Loading"]</p>
 }
-else if (Companies.Count == 0)
+else if (!Companies.Any())
 {
     <p>@localizer["NoComps"]</p>
 }
 else
 {
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <td>@localizer["Name"]</td>
-            <td>@localizer["Address"]</td>
-            <td>@localizer["City"]</td>
-            <td>@localizer["State"]</td>
-            <td>@localizer["Zip"]</td>
-            <td>@localizer["Country"]</td>
-            <td>@localizer["Phone"]</td>
-            <td>@localizer["Contact"]</td>
-            <td>@localizer["Email"]</td>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var company in Companies)
-        {
-            <tr>
-                <td>@company.CompanyName</td>
-                <td>@company.Address</td>
-                <td>@company.City</td>
-                <td>@company.State</td>
-                <td>@company.PostalCode</td>
-                <td>@company.Country</td>
-                <td>@company.Phone</td>
-                <td>@company.Contact</td>
-                <td>@company.Email</td>
-            </tr>
+    <QuickGrid Class="table" Items="Companies" Pagination="state">
+        <PropertyColumn Property="company => company.CompanyName" Title="@localizer["Name"]" Sortable="true">
+            <ColumnOptions>
+                    <input type="search" @bind=nameFilter @bind:event="oninput" autofocus/>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Property="company => company.Address" Title="@localizer["Address"]"/>
+        <PropertyColumn Property="company => company.City" Title="@localizer["City"]"/>
+        <PropertyColumn Property="company => company.State" Title="@localizer["State"]" />
+        <PropertyColumn Property="company => company.PostalCode" Title="@localizer["Zip"]" />
+        <PropertyColumn Property="company => company.Country" Title="@localizer["Country"]" />
+        <PropertyColumn Property="company => company.Phone" Title="@localizer["Phone"]" />
+        <PropertyColumn Property="company => company.Contact" Title="@localizer["Contact"]" />
+        <PropertyColumn Property="company => company.Email" Title="@localizer["Email"]" />
 
-        }
-        </tbody>
-    </table>
+        <TemplateColumn Context="company">
+            <a href="@($"company/edit?id={company.Id}")">@localizer["Edit"]</a>
+            <a href="@($"company/delete?id={company.Id}")">@localizer["Delete"]</a>
+        </TemplateColumn>
+    </QuickGrid>
+
+    <Paginator State="state" />
 }
 
 @code {
-    private List<Company>? Companies { get; set; }
+    private readonly PaginationState state = new() { ItemsPerPage = 10 };
+    private string nameFilter = string.Empty;
 
-    protected override void OnInitialized()
-    {
-        Companies = context.Company.ToList();
-    }
+    private IQueryable<Company>? Companies => context?.Company.Where(c => c.CompanyName.Contains(nameFilter));
 
 }

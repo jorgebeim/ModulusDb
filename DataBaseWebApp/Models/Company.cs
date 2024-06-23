@@ -23,7 +23,7 @@ public class Company
     [MaxLength(100)]
     public string? Country { get; set; }
 
-    [MaxLength(100)]
+    [Phone, MaxLength(100)]
     public string? Phone { get; set; }
     public string? Contact { get; set; }
 

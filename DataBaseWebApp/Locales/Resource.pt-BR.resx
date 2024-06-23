@@ -133,7 +133,7 @@
 	  <value>Empresas</value>
   </data>
   <data name="Loading" xml:space="preserve">
-	  <value>Carregando</value>
+	  <value>Carregando...</value>
   </data>
   <data name="NoComps" xml:space="preserve">
 	  <value>Nenhuma empresa</value>
@@ -176,5 +176,20 @@
   </data>
   <data name="CreateClient" xml:space="preserve">
 	  <value>Criar empresa</value>
+  </data>
+  <data name="En-US" xml:space="preserve">
+	  <value>Inglês</value>
+  </data>
+  <data name="Pt-BR" xml:space="preserve">
+	  <value>Português</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+	  <value>Editar</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+	  <value>Deletar</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+	  <value>Salvar</value>
   </data>
 </root>

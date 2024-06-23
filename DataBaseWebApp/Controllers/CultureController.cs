@@ -14,8 +14,8 @@ public class CultureController : Controller
             var requestCulture = new RequestCulture(culture, culture);
             var cookieName = CookieRequestCultureProvider.DefaultCookieName;
             var cookieValue = CookieRequestCultureProvider.MakeCookieValue(requestCulture);
-
-            HttpContext.Response.Cookies.Append(cookieName, cookieValue);
+            var cookieOption = new CookieOptions { IsEssential = true };
+            HttpContext.Response.Cookies.Append(cookieName, cookieValue, cookieOption);
         }
 
         return LocalRedirect(redirectUri);
