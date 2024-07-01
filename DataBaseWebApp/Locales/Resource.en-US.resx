@@ -165,9 +165,6 @@
   <data name="Contact" xml:space="preserve">
 	  <value>Contact</value>
   </data>
-  <data name="Create" xml:space="preserve">
-	  <value>Create New Company</value>
-  </data>
   <data name="CoName" xml:space="preserve">
 	  <value>Company Name</value>
   </data>
@@ -191,5 +188,53 @@
   </data>
   <data name="Save" xml:space="preserve">
 	  <value>Save</value>
+  </data>
+  <data name="DeleteCo" xml:space="preserve">
+	  <value>Delete Company</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+	  <value>Company</value>
+  </data>
+  <data name="OkToDelete_m" xml:space="preserve">
+	  <value>Are you sure you want to delete this </value>
+  </data>
+  <data name="OkToDelete_f" xml:space="preserve">
+	  <value>Are you sure you want to delete this </value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+	  <value>Back to List</value>
+  </data>
+  <data name="MnuLoadcell" xml:space="preserve">
+	  <value>Load Cells</value>
+  </data>
+  <data name="SerialNr" xml:space="preserve">
+	  <value>Serial Nr.</value>
+  </data>
+  <data name="CapacityKn" xml:space="preserve">
+	  <value>Capacity (kN)</value>
+  </data>
+  <data name="Manufacturer" xml:space="preserve">
+	  <value>Manufacturer</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+	  <value>Model</value>
+  </data>
+  <data name="PurchDate" xml:space="preserve">
+	  <value>Purchase Date</value>
+  </data>
+  <data name="CalDate" xml:space="preserve">
+	  <value>Calibration Date</value>
+  </data>
+  <data name="NoLoadCells" xml:space="preserve">
+	  <value>No Load Cells</value>
+  </data>
+  <data name="CreateCo" xml:space="preserve">
+	  <value>Create new Company</value>
+  </data>
+  <data name="CreateLcell" xml:space="preserve">
+	  <value>Create Load Cell</value>
+  </data>
+  <data name="CreateNewLc" xml:space="preserve">
+	  <value>Create new Load Cell</value>
   </data>
 </root>

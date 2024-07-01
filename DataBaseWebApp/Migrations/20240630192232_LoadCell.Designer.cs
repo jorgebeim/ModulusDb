@@ -3,6 +3,7 @@ using System;
 using DataBaseWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBaseWebApp.Migrations
 {
     [DbContext(typeof(DataBaseWebAppContext))]
-    partial class DataBaseWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20240630192232_LoadCell")]
+    partial class LoadCell
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,39 +129,6 @@ namespace DataBaseWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("DataBaseWebApp.Models.LoadCell", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly?>("CalDate")
-                        .HasColumnType("date");
-
-                    b.Property<double>("CapacityKn")
-                        .HasColumnType("double");
-
-                    b.Property<string>("Manufacturer")
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
-                    b.Property<string>("Model")
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.Property<DateOnly?>("PurchaseDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("SerialNr")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LoadCell");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

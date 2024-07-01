@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using DataBaseWebApp.Locales;
 
 namespace DataBaseWebApp.Models;
 
 public class Company
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    [Required]
+    [Required(ErrorMessageResourceType = typeof(ErrorMessageResource), ErrorMessageResourceName = "CoNameRequired")]
     public string CompanyName { get; set; }
 
     public string? Address { get; set; }

@@ -1,0 +1,63 @@
+﻿@page "/loadcell/create"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@inject DataBaseWebAppContext Context
+@inject NavigationManager NavManager
+@rendermode InteractiveServer
+
+<div class="row">
+    <div class="col-sm-6">
+        <h3>@Localizer["CreateNewLc"]</h3>
+        
+        <EditForm Model="LoadCell" OnValidSubmit="Save" FormName="create">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="form-group">
+                <label for="serial">@Localizer["SerialNr"]</label>
+                <InputText id="serial" @bind-Value="LoadCell.SerialNr" class="form-control" />
+                <ValidationMessage For="() => LoadCell.SerialNr" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label for="capacity">@Localizer["CapacityKn"]</label>
+                <InputNumber id="capacity" @bind-Value="LoadCell.CapacityKn" class="form-control" />
+                <ValidationMessage For="() => LoadCell.CapacityKn" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label for="manuf">@Localizer["Manufacturer"]</label>
+                <InputText id="manuf" @bind-Value="LoadCell.Manufacturer" class="form-control" />
+                <ValidationMessage For="() => LoadCell.Manufacturer" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label for="model">@Localizer["Model"]</label>
+                <InputText id="model" @bind-Value="LoadCell.Model" class="form-control" />
+                <ValidationMessage For="() => LoadCell.Model" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label for="pDate">@Localizer["PurchDate"]</label>
+                <InputDate id="pDate" @bind-Value="LoadCell.PurchaseDate" class="form-control" />
+                <ValidationMessage For="() => LoadCell.PurchaseDate" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label for="calDate">@Localizer["CalDate"]</label>
+                <InputDate id="calDate" @bind-Value="LoadCell.CalDate" class="form-control" />
+                <ValidationMessage For="() => LoadCell.CalDate" class="text-danger" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">@Localizer["CreateLcell"]</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    public LoadCell LoadCell { get; set; } = new();
+
+    private async Task Save()
+    {
+        Context.LoadCell.Add(LoadCell);
+        await Context.SaveChangesAsync();
+        NavManager.NavigateTo("/loadcell");
+    }
+
+}

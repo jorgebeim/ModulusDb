@@ -1,0 +1,49 @@
+﻿@page "/loadcell"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject DataBaseWebAppContext Context
+@rendermode InteractiveServer
+
+<h3>@Localizer["MnuLoadcell"]</h3>
+
+<p>
+    <a href="loadcell/create" class="btn btn-primary">@Localizer["PlusNew"]</a>
+</p>
+
+@if (LoadCells is null)
+{
+    <p>@Localizer["Loading"]</p>
+}
+else if (!LoadCells.Any())
+{
+    <p>@Localizer["NoLoadCells"]</p>
+}
+else
+{
+    <QuickGrid Class="table" Items="LoadCells" Pagination="state">
+        <PropertyColumn Property="lcell => lcell.SerialNr" Title="@Localizer["SerialNr"]" Sortable="true">
+            <ColumnOptions>
+                <input type="search" @bind=nameFilter @bind:event="oninput" autofocus/>
+            </ColumnOptions>
+        </PropertyColumn>
+        <PropertyColumn Property="lcell => lcell.CapacityKn" Title="@Localizer["CapacityKn"]"/>
+        <PropertyColumn Property="lcell => lcell.Manufacturer" Title="@Localizer["Manufacturer"]"/>
+        <PropertyColumn Property="lcell => lcell.Model" Title="@Localizer["Model"]"/>
+        <PropertyColumn Property="lcell => lcell.PurchaseDate" Title="@Localizer["PurchDate"]" Format="d"/>
+        <PropertyColumn Property="lcell => lcell.CalDate" Title="@Localizer["CalDate"]" Format="d"/>
+        <TemplateColumn Context="lcell">
+            <a href="@($"company/edit?id={lcell.Id}")">@Localizer["Edit"]</a>
+            <a href="@($"company/delete?id={lcell.Id}")">@Localizer["Delete"]</a>
+        </TemplateColumn>
+    </QuickGrid>
+
+    <Paginator State="state"/>
+}
+
+@code {
+    private readonly PaginationState state = new() { ItemsPerPage = 10 };
+    private string nameFilter = string.Empty;
+
+    private IQueryable<LoadCell>? LoadCells => Context?.LoadCell.Where(l => l.SerialNr.Contains(nameFilter));
+}

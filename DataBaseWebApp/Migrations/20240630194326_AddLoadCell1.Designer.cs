@@ -3,6 +3,7 @@ using System;
 using DataBaseWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataBaseWebApp.Migrations
 {
     [DbContext(typeof(DataBaseWebAppContext))]
-    partial class DataBaseWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20240630194326_AddLoadCell1")]
+    partial class AddLoadCell1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

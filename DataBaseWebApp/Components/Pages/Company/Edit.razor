@@ -2,15 +2,15 @@
 @using DataBaseWebApp.Data
 @using DataBaseWebApp.Models
 @using Microsoft.EntityFrameworkCore
-@inject DataBaseWebAppContext context
+@inject DataBaseWebAppContext Context
 @inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
-<h3>@localizer["Edit"]</h3>
+<h3>@Localizer["Edit"]</h3>
 <hr/>
 @if (Company is null)
 {
-    <p><em>@localizer["Loading"]</em></p>
+    <p><em>@Localizer["Loading"]</em></p>
 }
 else
 {
@@ -21,51 +21,51 @@ else
                 <ValidationSummary/>
                 <input type="hidden" name="Company.Id" value="@Company.Id"/>
                 <div class="mb-3">
-                    <label for="name" class="form-label">@($"{localizer["CoName"]}:")</label>
+                    <label for="name" class="form-label">@($"{Localizer["CoName"]}:")</label>
                     <InputText id="name" @bind-Value="Company.CompanyName" class="form-control" />
                     <ValidationMessage For="() => Company.CompanyName" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">@($"{localizer["Address"]}:")</label>
+                    <label for="address" class="form-label">@($"{Localizer["Address"]}:")</label>
                     <InputText id="address" @bind-Value="Company.Address" class="form-control" />
                     <ValidationMessage For="() => Company.Address" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="city" class="form-label">@($"{localizer["City"]}:")</label>
+                    <label for="city" class="form-label">@($"{Localizer["City"]}:")</label>
                     <InputText id="city" @bind-Value="Company.City" class="form-control" />
                     <ValidationMessage For="() => Company.City" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="state" class="form-label">@($"{localizer["State"]}:")</label>
+                    <label for="state" class="form-label">@($"{Localizer["State"]}:")</label>
                     <InputText id="state" @bind-Value="Company.State" class="form-control" />
                     <ValidationMessage For="() => Company.State" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="zip" class="form-label">@($"{localizer["Zip"]}:")</label>
+                    <label for="zip" class="form-label">@($"{Localizer["Zip"]}:")</label>
                     <InputText id="zip" @bind-Value="Company.PostalCode" class="form-control" />
                     <ValidationMessage For="() => Company.PostalCode" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="country" class="form-label">@($"{localizer["Country"]}:")</label>
+                    <label for="country" class="form-label">@($"{Localizer["Country"]}:")</label>
                     <InputText id="country" @bind-Value="Company.Country" class="form-control" />
                     <ValidationMessage For="() => Company.Country" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="phone" class="form-label">@($"{localizer["Phone"]}:")</label>
+                    <label for="phone" class="form-label">@($"{Localizer["Phone"]}:")</label>
                     <InputText id="phone" @bind-Value="Company.Phone" class="form-control" />
                     <ValidationMessage For="() => Company.Phone" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="contact" class="form-label">@($"{localizer["Contact"]}:")</label>
+                    <label for="contact" class="form-label">@($"{Localizer["Contact"]}:")</label>
                     <InputText id="contact" @bind-Value="Company.Contact" class="form-control" />
                     <ValidationMessage For="() => Company.Contact" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">@($"{localizer["Email"]}:")</label>
+                    <label for="email" class="form-label">@($"{Localizer["Email"]}:")</label>
                     <InputText id="email" @bind-Value="Company.Email" class="form-control" />
                     <ValidationMessage For="() => Company.Email" class="text-danger" />
                 </div>
-                <button type="submit" class="btn btn-primary">@localizer["Save"]</button>
+                <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
             </EditForm>
         </div>
     </div>
@@ -80,7 +80,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Company ??= await context.Company.FirstOrDefaultAsync(c => c.Id == Id);
+        Company ??= await Context.Company.FirstOrDefaultAsync(c => c.Id == Id);
 
         if (Company is null)
         {
@@ -90,11 +90,11 @@ else
 
     private async void EditCompany()
     {
-        context.Attach(Company!).State = EntityState.Modified;
+        Context.Attach(Company!).State = EntityState.Modified;
 
         try
         {
-            await context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -114,7 +114,7 @@ else
 
         bool CompanyExists(int id)
         {
-            return context.Company.Any(c => c.Id == id);
+            return Context.Company.Any(c => c.Id == id);
         }
     }
 
