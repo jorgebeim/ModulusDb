@@ -123,4 +123,7 @@
   <data name="CoNameRequired" xml:space="preserve">
     <value>Company Name is required</value>
   </data>
+  <data name="CapacityRange" xml:space="preserve">
+	  <value>Capacity must be between 0 and 999,999,999 kN</value>
+  </data>
 </root>

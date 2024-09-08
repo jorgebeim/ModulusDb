@@ -33,8 +33,8 @@ else
         <PropertyColumn Property="lcell => lcell.PurchaseDate" Title="@Localizer["PurchDate"]" Format="d"/>
         <PropertyColumn Property="lcell => lcell.CalDate" Title="@Localizer["CalDate"]" Format="d"/>
         <TemplateColumn Context="lcell">
-            <a href="@($"company/edit?id={lcell.Id}")">@Localizer["Edit"]</a>
-            <a href="@($"company/delete?id={lcell.Id}")">@Localizer["Delete"]</a>
+            <a href="@($"loadcell/edit?id={lcell.Id}")">@Localizer["Edit"]</a>
+            <a href="@($"loadcell/delete?id={lcell.Id}")">@Localizer["Delete"]</a>
         </TemplateColumn>
     </QuickGrid>
 

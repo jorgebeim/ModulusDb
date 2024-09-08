@@ -1,0 +1,101 @@
+﻿@page "/loadcell/edit"
+@using DataBaseWebApp.Data
+@using DataBaseWebApp.Models
+@using Microsoft.EntityFrameworkCore
+@inject DataBaseWebAppContext Context
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<h3>@Localizer["Edit"] @Localizer["Loadcell"]</h3>
+<hr/>
+@if (LoadCell is null)
+{
+    <p><em>@Localizer["Loading"]</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="LoadCell" OnValidSubmit="EditLoadCell" FormName="editLc" Enhance>
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <input type="hidden" name="LoadCell.Id" value="@LoadCell.Id"/>
+                <div class="mb-3">
+                    <label for="serial" class="form-label">@($"{Localizer["SerialNr"]}:")</label>
+                    <InputText id="serial" @bind-Value="LoadCell.SerialNr" class="form-control" />
+                    <ValidationMessage For="() => LoadCell.SerialNr" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="capacity" class="form-label">@($"{Localizer["CapacityKn"]}:")</label>
+                    <InputNumber id="capacity" @bind-Value="LoadCell.CapacityKn" class="form-control" />
+                    <ValidationMessage For="() => LoadCell.SerialNr" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="manuf" class="form-label">@($"{Localizer["Manufacturer"]}:")</label>
+                    <InputText id="manuf" @bind-Value="LoadCell.Manufacturer" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="model" class="form-label">@($"{Localizer["Model"]}:")</label>
+                    <InputText id="model" @bind-Value="LoadCell.Model" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="pDate" class="form-label">@($"{Localizer["PurchDate"]}:")</label>
+                    <InputDate id="pDate" @bind-Value="LoadCell.PurchaseDate" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="calDate" class="form-label">@($"{Localizer["CalDate"]}:")</label>
+                    <InputDate id="calDate" @bind-Value="LoadCell.CalDate" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    [SupplyParameterFromQuery]
+    public int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    public LoadCell? LoadCell { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        LoadCell ??= await Context.LoadCell.FirstOrDefaultAsync(l => l.Id == Id);
+
+        if (LoadCell is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async void EditLoadCell()
+    {
+        Context.Attach(LoadCell!).State = EntityState.Modified;
+
+        try
+        {
+            await Context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            if (!LoadCellExists(LoadCell!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/loadcell");
+
+        return;
+
+        bool LoadCellExists(int id)
+        {
+            return Context.LoadCell.Any(lc => lc.Id == Id);
+        }
+    }
+}

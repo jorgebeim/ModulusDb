@@ -70,11 +70,20 @@ namespace DataBaseWebApp.Locales {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Comapny Name is required.
+        ///   Looks up a localized string similar to Company Name is required.
         /// </summary>
         public static string CoNameRequired {
             get {
                 return ResourceManager.GetString("CoNameRequired", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Capacity must be between 0 and 999,999,999 kN
+        /// </summary>
+        public static string CapacityRange {
+            get {
+                return ResourceManager.GetString("CapacityRange", resourceCulture);
             }
         }
     }

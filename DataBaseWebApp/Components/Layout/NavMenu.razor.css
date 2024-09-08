@@ -46,6 +46,10 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-list-nested' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z'/%3E%3C/svg%3E");
 }
 
+.bi-list-new-nav-menu {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><defs><style>.canvas{fill: none; opacity: 0;}.light-defaultgrey-10{fill: %23AFAFAF; opacity: 0.1;}.light-defaultgrey{fill: %23FFFFFF; opacity: 1;}.light-blue{fill: %23005dba; opacity: 1;}</style></defs><g id="canvas"><path class="canvas" d="M16,16H0V0H16Z" /></g><g id="level-1"><path class="light-defaultgrey-10" d="M11.5,10.5a4,4,0,1,1-4-4A4,4,0,0,1,11.5,10.5Z" /><path class="light-defaultgrey" d="M7.5,15A4.5,4.5,0,1,1,12,10.5,4.505,4.505,0,0,1,7.5,15Zm0-8A3.5,3.5,0,1,0,11,10.5,3.5,3.5,0,0,0,7.5,7Z" /><path class="light-defaultgrey" d="M9,10v1H7.5L7,10.5V8H8v2Z" /><path class="light-blue" d="M8.011,4.293,9.157,3.146l.707.708-2,2H7.157l-2-2,.707-.708L7.011,4.293V0h1Z" /></g></svg>');
+}
+
 .nav-item {
     font-size: 0.9rem;
     padding-bottom: 0.5rem;

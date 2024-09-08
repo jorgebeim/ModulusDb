@@ -10,6 +10,7 @@ public class LoadCell
     [Required(ErrorMessageResourceName = "SerNumRequired", ErrorMessageResourceType = typeof(ErrorMessageResource)), MaxLength(100)]
     public string SerialNr { get; set; }
 
+    [Range(0, 999999999.0, ErrorMessageResourceName = "CapacityRange", ErrorMessageResourceType = typeof(ErrorMessageResource))]
     public double CapacityKn { get; set; }
 
     [MaxLength(200)]

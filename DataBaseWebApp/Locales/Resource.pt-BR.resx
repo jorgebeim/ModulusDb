@@ -237,4 +237,7 @@
   <data name="CreateNewLc" xml:space="preserve">
 	  <value>Criar nova célula de carga</value>
   </data>
+  <data name="Loadcell" xml:space="preserve">
+	  <value>Célula de carga</value>
+  </data>
 </root>

@@ -17,4 +17,7 @@
 	<data name="CoNameRequired" xml:space="preserve">
 		<value>O nome da empresa é obrigatório</value>
 	</data>
+	<data name="CapacityRange" xml:space="preserve">
+		<value>A capacidade tem que estar entre 0 e 999.999.999 kN</value>
+	</data>
 </root>
